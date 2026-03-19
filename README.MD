@@ -1,6 +1,6 @@
 # React.js Notes
 
-## 01_React_Element
+# 01_React_Element
 
 React.js is nothing but a Javascript library or some call it a framework (and why not because it is nothing less than a framework), you can create an HTML element using it.
 
@@ -43,7 +43,7 @@ That's it!
 ```
 That's it. Here Key is optional, if you are using elements wihout siblings.
 
-## 02_JSX_And_Babel
+# 02_JSX_And_Babel
 
 ### JSX (Javascript XML) allows us to write HTML in React.
 You might've noticed in the previous code that writing HTML without JSX even in React is lengthy and difficult.
@@ -86,7 +86,7 @@ npm install --save-dev @babel/core @babel/cli @babel/preset-react
 ```bash
 npm run build
 ```
-## 03_SourceMaps
+# 03_SourceMaps
 
 ### What are Source Maps?
 When you run
@@ -119,3 +119,16 @@ add this --watch at the end in build
 ```bash
 "build": "babel ./script.js -d lib --source-maps --watch"
 ```
+# 04 Bundlers (Parcel)
+
+#### Node modules are not for browser, browser doesn't run these modules. Now when you install react and react dom, you can't yet use react code on browser, yes they are on your node_modules folders, but you can't use react code from it.
+So to solve this problem, Bundlers are used, in this case Parcel.
+```bash
+npm init -y
+npm i react react-dom
+npm i parcel -D
+```
+Now, Parcel itself uses Babel behind the scenes, but now you don't have to explicitly install Babel and/ or want to configure source maps, just have to install Parcel and it just bundles all the files for you to use React and use source maps, hence the name.
+
+#### Because of source maps if you debug your code in browser you see your written code, but if you disable source map you'll see Parcel's .js file (in dist folder) your code (in this case -6 loc) is transformed into almost 20000 loc, which in this case is the entire app.
+So you see the browser isn't rendering your script.js file instead it renders the Parcel's .js file and the reason you see your code in browser instead of Parcel's it because of source map.
