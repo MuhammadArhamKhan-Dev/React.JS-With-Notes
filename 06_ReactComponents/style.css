@@ -1,0 +1,29 @@
+.body{
+    margin: 0;
+    box-sizing: border-box;
+    color: white;
+}
+
+.card{
+    max-width: 300px;
+    border-radius: 10px;
+    border: 2px solid black;
+    overflow: hidden;
+    background-color: bisque;
+}
+
+.card img{
+    width: 100%;
+    border-radius: 10px;
+}
+
+.card .content{
+    font-size: 0.8rem;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}

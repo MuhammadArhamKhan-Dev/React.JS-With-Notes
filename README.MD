@@ -132,3 +132,87 @@ Now, Parcel itself uses Babel behind the scenes, but now you don't have to expli
 
 #### Because of source maps if you debug your code in browser you see your written code, but if you disable source map you'll see Parcel's .js file (in dist folder) your code (in this case -6 loc) is transformed into almost 20000 loc, which in this case is the entire app.
 So you see the browser isn't rendering your script.js file instead it renders the Parcel's .js file and the reason you see your code in browser instead of Parcel's it because of source map.
+
+# 05 Rendering Multiple Elements
+#### One of the most important and useful thing in React.js is that you can render multiple elements in it, writing code of just one.
+
+#### Now if you want to render multiple cards, then
+
+### Here first create the function
+```javascript
+function renderCard(imgSrc, name, price, key){
+    return <div className="card" key={key}>
+
+    <img src={imgSrc} alt="iphone" />
+    <b><hr /></b>
+    <div className="content">
+    <h2>{name}</h2>
+    <h2>{price} $</h2>
+    </div>
+</div>
+}
+```
+#### This function returns a div in which card properties are defined.
+
+### Now, create a container of multiple cards just by calling the function you defined above.
+
+```javascript
+fetch('https://dummyjson.com/products/search?q=phone')
+.then((res) => res.json())
+.then((data) => {
+    console.log(data.products)
+    const container = data.products.map((products)=>{
+        return renderCard(products.thumbnail, products.title, products.price, products.id)
+    })
+    root.render(<div className="container">{container}</div>)
+    
+});
+```
+#### If you wrote this code in HTML, you'd have written many many loc.
+
+### Most Important:
+#### You have to remember that render function only renders one element, so in order to render multiple elements you have created container as a single array and put all the elements in it.
+
+# 06 React Component
+### What is a React Component?
+#### A React Component is simply a function which returns a JSX (React Element). It is used as a reusable UI Component.
+Example:
+```javascript
+function RenderCard(props){
+    const {imgSrc, name, price} = props
+    
+    return <div className="card">
+
+    <img src={imgSrc} alt="iphone" />
+    <b><hr /></b>
+    <div className="content">
+    <h2>{name}</h2>
+    <h2>{price} $</h2>
+    </div>
+</div>
+}
+```
+#### Now you can use it as a React Component
+#### React makes the component like this behind the scenes
+```javascript
+root.render({
+    $$typeof: Symbol.for('react.element'),
+    type: RenderCard,
+    ref: null,
+    props:{}
+
+})
+```
+#### OR Using React.createElement()
+```javascript
+root.render(
+    React.createElement(RenderCard, { imgSrc: "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-airpods-max-silver/thumbnail.webp", name: "AirPods", price: "20 $", key: 1 })
+);
+```
+#### Using JSX
+```javascript
+root.render(<RenderCard imgSrc= "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-airpods-max-silver/thumbnail.webp" name= "AirPods" price= "20 $" key = {1} />);
+```
+#### You can see [here](https://babeljs.io/repl#?config_lz=N4IgZglgNgpgdgQwLYxALhAJxgBygOgCsBnADxABoQdtiYAXY9AbWZHgDdLR6FMBzBkwwATGGAQBXKIwoACOAHt6ciDDkBGDfKUq1AfSSKARpo2UQRkdJjCJUOlWOT-kUrfT1MkmAF8AuhRs2AgAxvTcWJJw9BAo6CBS9IpICLGhIAFBIMS8ggC0AEyRYqGKmGnlxABqMJjEEIpwCYUADIUAzPlaFjgQODBQEHAwAAqYijiKxAhQCQAWYQDWmf6BOYqSmKEwACoAngMJVjaZQA&code_lz=BQHgSgpgdgJhBOBhAhvGACAlgWwOYGV4BjAXnQCIALAF2oAcBnALgHoWiYoA6GAV22wBPAFYMA9tyJjsLOvDF8i1ALQ5kuCAxbYxAI0wAbCMuREim8fEyaWyOnSMnM8OgobLsyAB7KGhgG4ILNSU_LpQyIZcAO4QunTk6BHYEGTkAILOAApuiXKY5mkATAAM6AAkiQDWEILoZADeAIwAvugsAHwAlADcQA&lineWrap=true&version=7.29.2) that the above JSX is compiled into the React.createElement()
+
+#### In short React Component is a React Element, in which the type is a function (which returns a React Element)
