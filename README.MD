@@ -216,3 +216,46 @@ root.render(<RenderCard imgSrc= "https://cdn.dummyjson.com/product-images/mobile
 #### You can see [here](https://babeljs.io/repl#?config_lz=N4IgZglgNgpgdgQwLYxALhAJxgBygOgCsBnADxABoQdtiYAXY9AbWZHgDdLR6FMBzBkwwATGGAQBXKIwoACOAHt6ciDDkBGDfKUq1AfSSKARpo2UQRkdJjCJUOlWOT-kUrfT1MkmAF8AuhRs2AgAxvTcWJJw9BAo6CBS9IpICLGhIAFBIMS8ggC0AEyRYqGKmGnlxABqMJjEEIpwCYUADIUAzPlaFjgQODBQEHAwAAqYijiKxAhQCQAWYQDWmf6BOYqSmKEwACoAngMJVjaZQA&code_lz=BQHgSgpgdgJhBOBhAhvGACAlgWwOYGV4BjAXnQCIALAF2oAcBnALgHoWiYoA6GAV22wBPAFYMA9tyJjsLOvDF8i1ALQ5kuCAxbYxAI0wAbCMuREim8fEyaWyOnSMnM8OgobLsyAB7KGhgG4ILNSU_LpQyIZcAO4QunTk6BHYEGTkAILOAApuiXKY5mkATAAM6AAkiQDWEILoZADeAIwAvugsAHwAlADcQA&lineWrap=true&version=7.29.2) that the above JSX is compiled into the React.createElement()
 
 #### In short React Component is a React Element, in which the type is a function (which returns a React Element)
+
+# 07 Counter App
+#### This is a simple counter app, which increase the count of each basket. Thing to note here is that you can make components and reuse them in your code, instead of writing the whole HTML code again.
+
+### components/ folder contains all the components except for the main component App.js (or App.jsx).
+### Button Component
+```javascript
+const Button = ({imageUrl, name, onClick}) => {
+
+    return (
+        <button onClick={onClick} title={name}>
+            <img src={imageUrl} alt={name} />
+        </button>
+    )
+}
+
+export default Button
+```
+#### Notice how the props (arguments in object) are being passed and then are being used.
+
+### Reuse Components
+#### The Button component and other components now are being used in the AppleCounter.js (which itsel is a component)
+```javascript
+<>
+<section>
+    <div className="basket-content left">
+        <Basket count={leftAppleCount} basketNumber={0} />
+        <Button onClick={leftButtonHandler()} name="leftArrow" imageUrl={LeftArrow} />
+    </div>
+    <div className="basket-content right">
+        <Basket count={rightAppleCount} basketNumber={1} />
+        <Button onClick={rightButtonHandler()} name="rightArrow" imageUrl={RightArrow}/>
+    </div>
+    
+</section>
+    <p>
+        <button onClick={()=>{root.render(<AppleCounter />)}}>re -render</button>
+</p>
+</>
+```
+
+### Notice, to change the count of each basket, the component has to be re-rendered, which in this case we are doing it, which is not a good practice, obviously if we have to do it by ourselves then what is the use of React?
+### Now what is this magic thing React uses to re-render the component by itself?
