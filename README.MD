@@ -259,3 +259,36 @@ export default Button
 
 ### Notice, to change the count of each basket, the component has to be re-rendered, which in this case we are doing it, which is not a good practice, obviously if we have to do it by ourselves then what is the use of React?
 ### Now what is this magic thing React uses to re-render the component by itself?
+
+# 08 States
+#### In React, a state is a built-in object used to store data that can change over time and affect how a component renders. When the state changes, React automatically re-renders the component to reflect the new data.
+
+### Use State
+#### Use State is simply an array which contains 2 elements. One is the initial value, and second is the function to upadate that value. That's it!
+
+### See the code in the Counter.js component
+```javascript
+import { useState } from "react"
+
+const Counter = () => {
+
+    const [count ,setCount] = useState(0)
+
+    // const myStateArr = useState(0)
+    // const count = myStateArr[0]
+    //const setCount = myStateArr[1]
+  return (
+    <>
+      <h1>Counter App</h1>
+      <h1>{count}</h1>
+      <button onClick={()=> {
+        setCount(count + 1)
+      }}>Count</button>
+    </>
+  )
+}
+
+export default Counter
+```
+### To understand it a basic level see the commented code.
+### See, how you don't need to tell React to update the DOM, meanwhile in Vanilla JS you have to first update the variable, and then you have to update the DOM.

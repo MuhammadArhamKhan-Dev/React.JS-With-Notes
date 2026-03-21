@@ -13,7 +13,11 @@ const root = createRoot(document.querySelector("#root"))
     let rightAppleCount = 0
     let leftAppleCount = totalAppleCount - rightAppleCount
 
-    const leftButtonHandler = () => {
+
+
+const AppleCounter = () => {
+
+        const leftButtonHandler = () => {
 
             if(leftAppleCount > 0){
                 leftAppleCount ++
@@ -28,10 +32,6 @@ const root = createRoot(document.querySelector("#root"))
                 rightAppleCount ++
             }
     }
-
-const AppleCounter = () => {
-
-
 
     return (
         <>
