@@ -355,3 +355,18 @@ const Counter = ({children}) => {
 
 export default Counter
 ```
+# 11 Scope CSS to a particular Component
+## Problem with normal css file in React
+All styles defined in a normal CSS file are global, which means they can affect any component in the application. This can lead to unintended side effects and make it difficult to maintain and debug styles.
+## How to solve this?
+We can use CSS Modules, which is a popular solution for scoping CSS in React applications. With CSS Modules, you can create a CSS file for each component and import it directly into the component. The styles defined in the CSS file will be scoped to that component only, preventing any global scope issues. Here's how you can implement CSS Modules in your React application:
+
+Create a CSS file for your component, for example, `Basket.module.css`.
+
+Define your styles in the CSS file as usual.
+
+Import the CSS file into your component using the `import` statement, and assign it to a variable, for example, `styles`.
+
+Use the imported styles in your component by referencing the class names defined in the CSS file, for example, `className={styles.appleBasket}`.
+
+This way, the styles will be scoped to the `Basket` component and won't affect any other 

@@ -35,7 +35,8 @@ const AppleCounter = () => {
         <>
             <section>
                 <div className="basket-content left">
-                    <Basket count={leftAppleCount} basketNumber={0} />
+                    <Basket count={leftAppleCount} basketNumber={0}>
+                    </Basket>
                     <Button buttonClickHandler={leftButtonHandler} name="leftArrow" imageUrl={LeftArrow} />
                 </div>
                 <div className="basket-content right">
