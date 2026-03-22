@@ -305,3 +305,53 @@ Props are received from the parent component, they are immutable and read-only. 
 
 ## States
 They are variables, defined and managed within the states. They are mutable and can be updated by the component. They manage data that changes within the component and affects its rendering.
+
+# 10 Children Prop
+Children props are used to pass the content between the opening and closing tags of a component.
+
+### First define the content in the Component
+(Here the content is a component itself.)
+```javascript
+import AppleCounter from "./components/AppleCounter"
+import Counter from "./components/Counter"
+
+const App = ({root}) => {
+
+    return (
+        <>
+            <Counter>
+                <AppleCounter />
+            </Counter>
+        </>
+    )
+}
+
+export default App
+```
+### Now to access it in the Counter.js Component
+```javascript
+import { useState } from "react"
+
+const Counter = ({children}) => {
+
+  const [count, setCount] = useState(0)
+
+  // const myStateArr = useState(0)
+  // const count = myStateArr[0]
+  //const setCount = myStateArr[1]
+  return (
+    <>
+      <h1>Counter App</h1>
+      <h1>{count}</h1>
+      <button onClick={() => {
+        // setCount(count + 1)
+        setCount(prev => prev + 1)
+        
+      }}>Count</button>
+      {children}
+    </>
+  )
+}
+
+export default Counter
+```
