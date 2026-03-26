@@ -1,0 +1,20 @@
+.section1{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    margin: 5vh auto 0;
+    padding: 0 50px 5vh;
+}
+
+@media (max-width: 768px) {
+
+    .section1{
+        flex-direction: column;
+        gap: 15px;
+        padding: 0 0 5vh;
+        
+    }
+    
+}

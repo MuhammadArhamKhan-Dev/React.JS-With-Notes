@@ -369,4 +369,61 @@ Import the CSS file into your component using the `import` statement, and assign
 
 Use the imported styles in your component by referencing the class names defined in the CSS file, for example, `className={styles.appleBasket}`.
 
-This way, the styles will be scoped to the `Basket` component and won't affect any other 
+This way, the styles will be scoped to the `Basket` component and won't affect any other.
+
+# 12 useEffect Hook
+
+#### Consider the following code
+```javascript
+fetch("https://restcountries.com/v3.1/all?fields=name,flags,region,population,capital")
+    .then((res)=>res.json())
+    .then((data)=>{
+        setCountriesData(data)
+    })
+```
+#### here `setCountriesData`is a setState function, now every time setState Function is called, the whole component re-renders, and that's where the performance gets downgrade. Fetch is being called on every re-render.
+
+### How to fix?
+### Option 1: Use If
+```javascript
+if(countriesData.length === 0){
+
+    fetch("https://restcountries.com/v3.1/all?fields=name,flags,region,population,capital")
+    .then((res)=>res.json())
+    .then((data)=>{
+        setCountriesData(data)
+    })
+}
+```
+#### Now, this actually upgrades the performance but, nobody writes this logic in this way.
+#### Why? Suppose you have to set the `countriesData` length to 0 in any other case, then what you'd do?
+
+### Option2: Only call fetch() the first time component gets re-rendered.
+### Another way of saying this is: useEffect
+
+```javascript
+useEffect(() => {
+        fetch("https://restcountries.com/v3.1/all?fields=name,flags,region,population,capital")
+            .then((res) => res.json())
+            .then((data) => {
+                setCountriesData(data)
+            })
+    }, [])
+```
+### Explanation: the whole code runs only
+#### 1: When the component first gets rendered
+#### 2: When the dependency is changed.
+### Dependency: `[]` (in the last of useEffect)
+#### right now the dependency array is empty, meaning, the whole fetch() code will run first time when the component get rendered, and then it won't run because there is no dependency there.
+```javascript
+useEffect(()=>{
+    console.log("hi")
+
+    return() => {
+        console.log("cleanup function")
+    }
+}, [count])
+```
+#### in the above code, console.log() runs when the component gets rendered first time and every time the count variable is changed.
+
+#### the last callback function is called when the component gets unmount, removed from the page (concept in routing.)
