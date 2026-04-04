@@ -1,0 +1,43 @@
+.section3{
+    margin: 5vh auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.section3 .first{
+    padding: 2px;
+}
+
+.section3 .first button{
+    border-radius: 10px;
+    width: 100%;
+    max-width: 150px;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 0px 5px 3px #aaa0a0;
+}
+
+.second{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.second .main{
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    gap: 15px;
+}
+
+.second .details{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notFound{
+    margin: 5vh auto 0;
+    font-size: large;
+}

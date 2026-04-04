@@ -427,3 +427,163 @@ useEffect(()=>{
 #### in the above code, console.log() runs when the component gets rendered first time and every time the count variable is changed.
 
 #### the last callback function is called when the component gets unmount, removed from the page (concept in routing.)
+# 13 Routing in React
+React.js works on single page application. Now, obviously, there is a very low chance that your application is of single page. You'd have Contact Us, About Us page and etc. To solve this problem `React Router` comes in play.
+## Set up a Basic Router
+```javascript
+import { createBrowserRouter, RouterProvider } from 'react-router'
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <App />
+    },
+    {
+        path: "/contact",
+        element: <Contact />
+    }
+])
+root.render(<RouterProvider router={router} />)
+```
+With the above code, you have set up a basic router which routes you to the `App` component on `/` path and, to the `Contact` component on `/contact` path.
+
+## Displaying same Component Again
+If a component is being used in almost every page, for e.g. `Header.jsx` so, one way to display it that you use it inside the fragment in `RouterProvider`.
+```javascript
+root.render(<>
+    <Header />
+    <RouterProvider router={router} />
+    </>
+)
+```
+But, this isn't the good practice.
+To do this, `<Outlet />` is used.
+The Outlet component in React Router is a powerful tool for rendering nested routes. It acts as a placeholder in the parent route's component, where the child routes will be rendered. If no child route matches, it renders nothing.
+
+Now, all the code is cut from the `<App />` component to a new component `<Home />`.
+
+`App.jsx`
+```javascript
+import { useState } from "react"
+import { Outlet } from "react-router"
+import Header from "./components/Header"
+
+const App = () => {
+
+    const [query, setQuery] = useState('')
+
+    const handleSearch = (e) => {
+        setQuery(e.target.value.toLowerCase())
+    }
+
+    return (
+        <>
+            <Header />
+            <Outlet />
+        </>
+    )
+
+}
+
+export default App
+```
+This code means that when the `<App />` component is rendered, `<Header />` component will be rendered and, all the matching child routes will also be renderd.
+
+`index.jsx`
+```javascript
+import { createRoot } from 'react-dom/client';
+import App from './App';
+import { createBrowserRouter, RouterProvider } from 'react-router'
+import Contact from './components/Contact';
+import Home from './components/Home';
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <App />,
+        children: [
+            {
+                path: "/",
+                element: <Home />
+            },
+            {
+                path: "/contact",
+                element: <Contact />
+            }
+        ]
+    },
+])
+
+const root = createRoot(document.querySelector("#root"))
+
+root.render(<>
+    <RouterProvider router={router} />
+</>)
+```
+Now, the children contains `<Home />` on path `/` and `<Contact />` on path `/contact`.
+## Error page
+You can also create your own custom error page.
+
+`Error.jsx`
+```javascript
+import { useRouteError } from "react-router"
+
+const Error = () => {
+    const error = useRouteError()
+  return (
+    <>
+      <h1>Oops...Something Went Wrong {error.status}</h1>
+    </>
+  )
+}
+
+export default Error
+```
+Now, use this in `index.jsx`
+```javascript
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <App />,
+        errorElement: <Error />,
+        children: [
+            {
+                path: "/",
+                element: <Home />
+            },
+            {
+                path: "/contact",
+                element: <Contact />
+            }
+        ]
+    },
+])
+```
+## Link in React
+To avoid loading page, when going from one page to another, Use `Link` tag by `react-router`. It uses the DOM History API to update the URL and manage the history stack.
+Just replace the `a` tag with `Link` tag.
+## Dynamic Routing
+`www.some-domain.com/country?name=Pakistan`
+This URL is fine, but good practice is that for every country name there should exist a new page like
+`www.some-domain.com/Pakistan`
+`www.some-domain.com/Iran`
+This is called `Dynamic Routing`.
+### How to do this?
+First you have to declare the `country` path dynamic in `index.jsx`
+```javascript
+{
+    path: "/:country",
+    element: <CountryDetail />
+}
+```
+in `CountryDetail.jsx`
+```javascript
+const params = useParams()
+const countryName = params.country
+```
+in `CountryCard.jsx`
+
+change the url to this
+```javascript
+<Link to={`/${name}`}>
+```

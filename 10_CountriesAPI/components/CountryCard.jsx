@@ -1,9 +1,10 @@
 import styles from "./CountryCard.module.css"
 import "../style.css"
+import { Link } from 'react-router'
 
 const CountryCard = ({ name, flag, population, region, capital }) => {
   return (
-    <a className={[styles.countryCard, "montserrat-body"].join(' ')} href={`/index.html?name=${name}`}>
+    <Link className={[styles.countryCard, "montserrat-body"].join(' ')} to={`/${name}`}>
 
       <div className={styles.imgContainer}>
         <img src={flag} alt={name + "flag"} />
@@ -16,7 +17,7 @@ const CountryCard = ({ name, flag, population, region, capital }) => {
         <p><b>Capital:</b> {capital}</p>
       </div>
 
-    </a>
+    </Link>
   )
 }
 

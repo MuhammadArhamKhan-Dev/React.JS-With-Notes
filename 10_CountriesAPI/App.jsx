@@ -1,7 +1,6 @@
-import Header from "./components/Header"
-import Section1 from "./components/Section1"
-import Section2 from "./components/Section2"
 import { useState } from "react"
+import { Outlet } from "react-router"
+import Header from "./components/Header"
 
 const App = () => {
 
@@ -14,10 +13,7 @@ const App = () => {
     return (
         <>
             <Header />
-            <main>
-                <Section1 searchHandler={handleSearch} />
-                <Section2 query={query} />  
-            </main>
+            <Outlet />
         </>
     )
 
