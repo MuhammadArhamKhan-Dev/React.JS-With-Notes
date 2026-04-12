@@ -17,7 +17,10 @@ header .left{
 }
 
 header .right{
-    font-size: 0.9rem
+    font-size: 0.9rem;
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
 }
 
 @media (max-width: 768px) {

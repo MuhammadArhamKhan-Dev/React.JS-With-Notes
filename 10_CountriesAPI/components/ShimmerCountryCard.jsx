@@ -1,9 +1,13 @@
+import styles from "./ShimmerCountryCard.module.css";
+
 const ShimmerCountryCard = () => {
   return (
-    <div>
-      
+    <div className={styles.card}>
+      <div className={styles.line}></div>
+      <div className={styles.line}></div>
+      <div className={styles.line}></div>
     </div>
-  )
-}
+  );
+};
 
-export default ShimmerCountryCard
+export default ShimmerCountryCard;

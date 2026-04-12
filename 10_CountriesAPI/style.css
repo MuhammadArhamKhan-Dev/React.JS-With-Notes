@@ -7,6 +7,18 @@
     /* outline: 1px solid red; */
 }
 
+body{
+  --background-color: white;
+  --text-color: black;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+body.dark {
+    --background-color: hsl(216, 11%, 9%); 
+    --text-color: white;
+}
+
 .montserrat-heading {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;

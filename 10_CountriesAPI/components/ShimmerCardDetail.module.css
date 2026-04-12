@@ -1,3 +1,33 @@
+/* Reusable shimmer effect */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background-color: lightgray;
+}
+
+.shimmer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  animation: shinny 1.5s infinite;
+}
+
+@keyframes shinny {
+  100% {
+    left: 100%;
+  }
+}
+
+
 .section3{
     margin: 5vh auto 0;
     display: flex;
@@ -49,6 +79,7 @@
     height: 200px;
     width: 300px;
     border-radius: 10px;
+    position: relative;
 }
 
 .shimmerDetails{

@@ -1,7 +1,12 @@
+import { useState } from "react"
 import "../style.css"
 import styles from "./Header.module.css"
+import {FaMoon, FaSun} from "react-icons/fa"
 
 const Header = () => {
+
+  const [isDark, setIsDark] = useState(false)
+
   return (
     <nav>
     <header>
@@ -9,7 +14,12 @@ const Header = () => {
         <h3 className='montserrat-heading'>Countries</h3>
       </div>
       <div className={styles.right}>
-        <h4 className='montserrat-body'>Dark Mode</h4>
+        {
+          isDark? (<FaSun style={{color: "orange", fontSize: "16px"}} />)
+          : (<FaMoon style={{color: "black", fontSize: "16px"}} />)
+        }
+        <h4 className='montserrat-body' onClick={()=>{document.body.classList.toggle("dark"); setIsDark(!isDark)}}>{
+          isDark? "Light Mode" : "Dark Mode"}</h4>
       </div>
     </header>
     </nav>
