@@ -8,6 +8,6 @@ select{
 @media (max-width: 768px) {
     
     select{
-        padding: 6px;
+        padding: 10px;
     }
 }

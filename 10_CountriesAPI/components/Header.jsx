@@ -1,25 +1,28 @@
-import { useState } from "react"
+import { useContext } from "react"
 import "../style.css"
 import styles from "./Header.module.css"
 import {FaMoon, FaSun} from "react-icons/fa"
+import { ThemeContext } from "../contexts/ThemeContext"
 
 const Header = () => {
 
-  const [isDark, setIsDark] = useState(false)
-
+  const [isDark, setIsDark] = useContext(ThemeContext)
   return (
-    <nav>
+    <nav className={`${isDark? 'dark' : ''}`}>
     <header>
       <div className={styles.left}>
         <h3 className='montserrat-heading'>Countries</h3>
       </div>
       <div className={styles.right}>
         {
-          isDark? (<FaSun style={{color: "orange", fontSize: "16px"}} />)
-          : (<FaMoon style={{color: "black", fontSize: "16px"}} />)
+          isDark? (<FaSun style={{color: "orange"}} />)
+          : (<FaMoon style={{color: "black"}} />)
         }
-        <h4 className='montserrat-body' onClick={()=>{document.body.classList.toggle("dark"); setIsDark(!isDark)}}>{
+        <h4 className='montserrat-body' onClick={()=>{setIsDark(!isDark)
+          localStorage.setItem("darkMode", !isDark)
+        }}>{
           isDark? "Light Mode" : "Dark Mode"}</h4>
+          
       </div>
     </header>
     </nav>

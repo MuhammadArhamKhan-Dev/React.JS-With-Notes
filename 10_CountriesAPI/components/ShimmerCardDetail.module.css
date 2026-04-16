@@ -29,7 +29,8 @@
 
 
 .section3{
-    margin: 5vh auto 0;
+    margin: 0 auto;
+    padding: 3% 1%;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -87,4 +88,18 @@
     width: 303px;
     background-color: lightgray;
     border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+
+    .section3{
+        padding: 3%;
+    }
+    .first{
+        width: 80px;
+    }
+    .second{
+        flex-direction: column;
+        gap: 20px;
+    }
 }

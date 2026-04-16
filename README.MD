@@ -587,3 +587,63 @@ change the url to this
 ```javascript
 <Link to={`/${name}`}>
 ```
+# 14 Lifting State Up
+In React, “lifting state up” means moving state from child components into their closest common parent so that multiple children can share and synchronize the same data. Instead of duplicating state in each child, the parent holds it and passes it down via props.
+
+### Example:
+Imagine you have two components:
+
+`TemperatureInput` (lets user type Celsius or Fahrenheit)
+
+`BoilingVerdict` (shows if water would boil at that temperature)
+
+If each component managed its own state, they wouldn’t stay in sync. Instead:
+```javascript
+function Calculator() {
+  const [temperature, setTemperature] = useState('');
+
+  return (
+    <div>
+      <TemperatureInput
+        scale="c"
+        temperature={temperature}
+        onTemperatureChange={setTemperature}
+      />
+      <BoilingVerdict temperature={temperature} />
+    </div>
+  );
+}
+```
+`Parent (Calculator)` holds the state.
+
+`Children (TemperatureInput, BoilingVerdict)` receive state and update functions via props.
+
+Now both components always reflect the same temperature value.
+
+# 15 Context API
+### Problem (Prop Driling):
+If a prop is passed between parent to its child to its child and so on... This is called Prop Driling. To avoid this `Context API` is used.
+
+### 1. Create a Context API
+```javascript
+import { createContext } from "react";
+
+export const ThemeContext = createContext()
+```
+### 2. Wrap it using Provider
+```javascript
+return (
+    <ThemeContext.Provider value={[isDark, setIsDark]}>
+        <Header />
+        <Outlet />
+    </ThemeContext.Provider>
+)
+```
+now, all of the Components is wrapped inside the `ThemeContext`. All of them now directly use the value which is wrapped using the `ThemeContext`.
+
+### 3. Use it
+`Home.jsx`
+```javascript
+const [isDark] = useContext(ThemeContext)
+```
+see, how the `OutletContext` is now removed.

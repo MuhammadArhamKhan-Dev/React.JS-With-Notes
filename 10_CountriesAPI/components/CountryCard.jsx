@@ -3,8 +3,9 @@ import "../style.css"
 import { Link } from 'react-router'
 
 const CountryCard = ({ name, flag, population, region, capital }) => {
+
   return (
-    <Link className={[styles.countryCard, "montserrat-body"].join(' ')} to={`/${name}`}>
+    <Link className={[styles.countryCard, "montserrat-body"].join(' ')} to={`/${name.toLowerCase()}`}>
 
       <div className={styles.imgContainer}>
         <img src={flag} alt={name + "flag"} />

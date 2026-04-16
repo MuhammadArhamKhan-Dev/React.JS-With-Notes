@@ -1,19 +1,23 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import "../style.css"
 import styles from "./CountryDetail.module.css"
-import { Link, useParams } from "react-router"
+import { Link , useParams } from "react-router"
 import ShimmerCardDetail from "./ShimmerCardDetail"
+import { ThemeContext } from "../contexts/ThemeContext"
 
 
 const CountryDetail = () => {
 
     const params = useParams()
-    const countryName = params.country
+    const cN = params.country
+    const countryName = cN.charAt(0).toUpperCase() + cN.slice(1);
     const [countryData, setCountryData] = useState(null)
     const [countryNotFound, setCountryNotFound] = useState(false)
+    const [isDark] = useContext(ThemeContext)
+    const [load, setLoad] = useState(true)
 
     useEffect(() => {
-        fetch(`https://restcountries.com/v3.1/name/${countryName}?fields=name,flags,region,population,capital,subregion,tld,currencies,languages,borders`)
+        fetch(`https://restcountries.com/v3.1/name/${cN}?fields=name,flags,region,population,capital,subregion,tld,currencies,languages,borders`)
             .then((res) => res.json())
             .then(([data]) => {
                 setCountryData({
@@ -27,8 +31,9 @@ const CountryDetail = () => {
                     currencies: Object.values(data.currencies).map((currency) => currency.name).join(', '),
                     languages: Object.values(data.languages).join(', '),
                     flags: Object.values(data.flags)[1],
-                    borders: []
+                    borders: [],
                 })
+                setLoad(false)
 
                 Promise.all(
                     data.borders.map((border) =>
@@ -53,7 +58,9 @@ const CountryDetail = () => {
         return <div className={['montserrat-body', styles.notFound].join(' ')}>Country Not Found!</div>
     }
 
-    return countryData === null ? <ShimmerCardDetail /> : (
+    return (
+        <main className={`${isDark ? 'dark' : ''}`}>
+            {load ? <ShimmerCardDetail /> : 
         <section className={styles.section3}>
             <div className={styles.first}>
                 <button className="montserrat-body" onClick={() => history.back()}>Back</button>
@@ -72,18 +79,20 @@ const CountryDetail = () => {
                     <p><b>Top Level Domain: </b>{countryData.topLevelDomain}</p>
                     <p><b>Currencies: </b>{countryData.currencies}</p>
                     <p><b>Languages: </b>{countryData.languages}</p>
-                    <p>
+                    <p className={styles.borders}>
                         <b>Borders: </b>
                         {countryData.borders.length === 0
                             ? 'None'
                             : countryData.borders.map((border) => (
-                                <Link key={border} to={`/${border}`}>{border} </Link>
+                                <Link key={border} to={`/${border}`.toLowerCase()}>{border} </Link>
                             ))
                         }
                     </p>
                 </div>
             </div>
         </section>
+}
+        </main>
     )
 
 }
