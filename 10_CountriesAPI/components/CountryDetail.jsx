@@ -22,14 +22,14 @@ const CountryDetail = () => {
             .then(([data]) => {
                 setCountryData({
                     name: data.name.common,
-                    nativeName: Object.values(data.name.nativeName)[0].common,
+                    nativeName: Object.values(data.name.nativeName || {})[0].common,
                     population: data.population,
                     region: data.region,
                     subRegion: data.subregion,
                     capital: Object.values(data.capital).join(', '),
                     topLevelDomain: data.tld,
-                    currencies: Object.values(data.currencies).map((currency) => currency.name).join(', '),
-                    languages: Object.values(data.languages).join(', '),
+                    currencies: Object.values(data.currencies || {}).map((currency) => currency.name).join(', '),
+                    languages: Object.values(data.languages || {}).join(', '),
                     flags: Object.values(data.flags)[1],
                     borders: [],
                 })
@@ -71,7 +71,7 @@ const CountryDetail = () => {
                     <img src={countryData.flags} alt={countryData.name} />
                 </div>
                 <div className={['montserrat-body', styles.details].join(' ')}>
-                    <p><b>Native Name: </b>{countryData.nativeName}</p>
+                    <p><b>Native Name: </b>{countryData.nativeName || countryData.name}</p>
                     <p><b>Population: </b>{countryData.population.toLocaleString('en-UN')}</p>
                     <p><b>Region: </b>{countryData.region}</p>
                     <p><b>Sub Region: </b>{countryData.subRegion}</p>

@@ -25,7 +25,7 @@ const Section2 = ({ query = '' }) => {
                 :
                 
                     countriesData
-                .filter((country) => country.name.common.toLowerCase().includes(query))
+                .filter((country) => country.name.common.toLowerCase().includes(query) || country.region.toLowerCase().includes(query))
                         .map((country, i) => (
                             <CountryCard key={i} name={country.name.common}
                                 flag={country.flags.svg}

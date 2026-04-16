@@ -6,7 +6,7 @@ const Section1 = ({searchHandler}) => {
   return (
     <section className={styles.section1}>
       <Search searchHandler={searchHandler} />
-      <Filter />
+      <Filter searchHandler = {searchHandler} />
     </section>
   )
 }

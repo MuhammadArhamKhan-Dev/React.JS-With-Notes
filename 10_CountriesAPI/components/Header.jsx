@@ -1,12 +1,11 @@
-import { useContext } from "react"
 import "../style.css"
 import styles from "./Header.module.css"
 import {FaMoon, FaSun} from "react-icons/fa"
-import { ThemeContext } from "../contexts/ThemeContext"
+import { useTheme } from "../hooks/useTheme"
 
 const Header = () => {
 
-  const [isDark, setIsDark] = useContext(ThemeContext)
+  const [isDark, setIsDark] = useTheme()
   return (
     <nav className={`${isDark? 'dark' : ''}`}>
     <header>

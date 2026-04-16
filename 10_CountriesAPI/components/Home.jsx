@@ -1,11 +1,11 @@
 import Section1 from "./Section1"
 import Section2 from "./Section2"
-import { useContext, useState } from "react"
-import { ThemeContext } from "../contexts/ThemeContext"
+import { useState } from "react"
+import { useTheme } from "../hooks/useTheme"
 const Home = () => {
 
     const [query, setQuery] = useState('')
-    const [isDark] = useContext(ThemeContext)
+    const [isDark] = useTheme()
 
 
     const handleSearch = (e) => {
