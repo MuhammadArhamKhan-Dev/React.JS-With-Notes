@@ -430,6 +430,9 @@ useEffect(()=>{
 # 13 Routing in React
 React.js works on single page application. Now, obviously, there is a very low chance that your application is of single page. You'd have Contact Us, About Us page and etc. To solve this problem `React Router` comes in play.
 ## Set up a Basic Router
+`npm i react-router-dom`
+
+`index.jsx`
 ```javascript
 import { createBrowserRouter, RouterProvider } from 'react-router'
 
@@ -647,3 +650,31 @@ now, all of the Components is wrapped inside the `ThemeContext`. All of them now
 const [isDark] = useContext(ThemeContext)
 ```
 see, how the `OutletContext` is now removed.
+
+# 16 Custom Hooks
+Hooks are nothing but functions, provides reusable codes. If you want to use a functionality again and again, better way is to create a hook which performs that functionality and use that hook again & again instead of writing the whole code again.
+
+### Create a custom hook
+In this example a `useTheme` hook returns the `isDark` and `setIsDark` state variables, from the `ThemeContext`.
+
+`useTheme.js`
+```javascript
+import { useContext } from "react";
+import { ThemeContext } from "../contexts/ThemeContext";
+
+export function useTheme() {
+    
+    return useContext(ThemeContext)
+}
+```
+now If you want to access `isDark` or `setIsDark` instead of calling the `useContext(useTheme)` you just call this `useTheme.js` hook.
+
+`Home.jsx`
+```javascript
+import { useState } from "react"
+import { useTheme } from "../hooks/useTheme"
+const Home = () => {
+
+    const [query, setQuery] = useState('')
+    const [isDark] = useTheme()
+```

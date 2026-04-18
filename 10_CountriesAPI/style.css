@@ -42,3 +42,6 @@ nav.dark {
   /* Regular */
   font-style: normal;
 }
+body{
+  min-height: 100vh;
+}

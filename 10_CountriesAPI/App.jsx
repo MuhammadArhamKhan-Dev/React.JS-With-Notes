@@ -5,12 +5,8 @@ import { ThemeContext } from "./contexts/ThemeContext"
 
 const App = () => {
 
-    const [query, setQuery] = useState('')
     const [isDark, setIsDark] = useState(JSON.parse(localStorage.getItem("darkMode")))
 
-    const handleSearch = (e) => {
-        setQuery(e.target.value.toLowerCase())
-    }
 
     return (
             <ThemeContext.Provider value={[isDark, setIsDark]}>
