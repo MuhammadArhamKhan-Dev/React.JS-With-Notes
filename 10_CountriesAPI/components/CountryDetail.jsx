@@ -5,7 +5,7 @@ import { Link , useParams } from "react-router"
 import ShimmerCardDetail from "./ShimmerCardDetail"
 import { ThemeContext } from "../contexts/ThemeContext"
 
-
+const API_KEY = process.env.RESTCOUNTRIES_API_KEY;
 const CountryDetail = () => {
 
     const params = useParams()
@@ -17,7 +17,12 @@ const CountryDetail = () => {
     const [load, setLoad] = useState(true)
 
     useEffect(() => {
-        fetch(`https://restcountries.com/v3.1/name/${cN}?fields=name,flags,region,population,capital,subregion,tld,currencies,languages,borders`)
+        fetch(`https://restcountries.com/v5/name/${cN}?fields=name,flags,region,population,capital,subregion,tld,currencies,languages,borders`,
+        {
+            headers: {
+    Authorization: `Bearer ${API_KEY}`,
+  },
+        })
             .then((res) => res.json())
             .then(([data]) => {
                 setCountryData({
