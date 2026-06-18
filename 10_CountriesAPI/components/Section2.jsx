@@ -4,14 +4,18 @@ import styles from "./Section2.module.css"
 import ShimmerCountryCard from "./ShimmerCountryCard"
 
 
-
+const API_KEY = process.env.RESTCOUNTRIES_API_KEY;
 const Section2 = ({ query = '' }) => {
 
     const [countriesData, setCountriesData] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        fetch("https://restcountries.com/v3.1/all?fields=name,flags,region,population,capital")
+        fetch("https://restcountries.com/v5/all?fields=name,flags,region,population,capital", {
+            headers: {
+                Authorization: `Bearer ${API_KEY}`
+            }
+        })
             .then((res) => res.json())
             .then((data) => {
                 setCountriesData(data)
