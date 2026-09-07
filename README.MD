@@ -565,6 +565,23 @@ const router = createBrowserRouter([
 ## Link in React
 To avoid loading page, when going from one page to another, Use `Link` tag by `react-router`. It uses the DOM History API to update the URL and manage the history stack.
 Just replace the `a` tag with `Link` tag.
+## Link Vs NavLink
+Navlink does everything `Link` does, but it also knows whether it represents the current route.
+
+For e.g.
+
+```javascript
+<NavLink to="/admin">
+  Dashboard
+</NavLink>
+```
+Suppose the user is current at /admin, then the React Router knows that the user is currently at Dashboard route, and therefore `isActive` becomes true.
+
+If the user goes to `/admin/jobs` then
+```bash
+Dashboard → isActive = false
+Job Postings → isActive = true
+```
 ## Dynamic Routing
 `www.some-domain.com/country?name=Pakistan`
 This URL is fine, but good practice is that for every country name there should exist a new page like
@@ -678,3 +695,28 @@ const Home = () => {
     const [query, setQuery] = useState('')
     const [isDark] = useTheme()
 ```
+# 17 Vite
+You've been seeing that all the projects has been created using `parcel`. Now let's shift to `Vite`.
+
+### How to create project using Vite?
+```bash
+npm create vite@latest
+```
+after this select your choice of stack. Right now, the stack is `React.js` and `JavaScript`.
+And, then you are good to go.
+
+### How to run?
+`npm run dev`
+
+# 18 useRef Hook
+
+in `useState` hook, when the value of the state is updated, the whole component gets re-redenred but, what if you don't wnat to re-rendered the whole component and, also update the value simultaneously? That's where `useRef` hook comes.
+
+```javascript
+const myRef = useRef(0)
+<button onClick = {() => {myRef = myRef += 1}}>Click</button>
+console.log(myRef)
+```
+Now, if you click on the button, the value of `myRef` gets updated, but the component won't be re-rendered. If you  deliberately re-render the component, the `myRef` will show you the last updated value, not the initial value.
+
+If you apply the increment using vanilla JavaScript, then, when the component gets re-rendered, the variable value will be, what you initliazed it, unlike `useRef` hook, which remembers the updated value.
