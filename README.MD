@@ -582,6 +582,24 @@ If the user goes to `/admin/jobs` then
 Dashboard → isActive = false
 Job Postings → isActive = true
 ```
+## useNavigate (React Hook)
+`Link` and `NavLink` both are used for navigation that is visible for user. These are essentially navigation UI. You have to click on the link to navigate.
+
+But, what if you need to programmatically/ logically need to navigate, user doesn't have to click, user automatically navigates to that route? Thats where `useNavigate` comes.
+
+`useNavigate` is a React Hook, that gives your component a function `navigate`.
+
+Here's a simple example where you use `useNavigate`.
+```javascript
+const handleLogin = async () => {
+  const result = await loginUser()
+
+  if (result.success) {
+    navigate("/dashboard")
+  }
+}
+```
+
 ## Dynamic Routing
 `www.some-domain.com/country?name=Pakistan`
 This URL is fine, but good practice is that for every country name there should exist a new page like
